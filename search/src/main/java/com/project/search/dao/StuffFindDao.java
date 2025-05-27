@@ -10,5 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StuffFindDao {
+	private Long id;
     private String name;
+    private String location;
+    private String date;
 }

@@ -1,27 +1,32 @@
 package com.project.search.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @Entity
 @Builder
-public class StuffModel {
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "stuff_data")
+public class StuffAddModel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "location")
     private String location;
-
+    
     @Column(name = "date")
-    private Date date;
+    private String date;
+
 }
