@@ -2,11 +2,11 @@ package com.project.search.service;
 
 import com.project.search.dao.StuffFindDao;
 import com.project.search.dto.StuffAddDto;
-import com.project.search.dto.StuffFindDto;
 import com.project.search.model.StuffAddModel;
+import com.project.search.model.StuffFindModel;
+import com.project.search.repository.StuffAddRepository;
 import com.project.search.repository.StuffFindRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +17,24 @@ import org.springframework.stereotype.Service;
 public class StuffFindServiceImpl implements StuffFindService {
 	
 	@Autowired
-    private StuffFindRepository stuffFindRepository;
+    private StuffAddRepository stuffAddRepository;
+	
+	@Autowired
+	private StuffFindRepository stuffFindRepository;
 
     @Override
     public StuffFindDao findTheStuff(String name) {
-    	 StuffAddModel stuffAddModel =  stuffFindRepository.findStuffByNameLike(name);
-    	 log.info("Stuff model from database {}",stuffAddModel);
-    	 StuffFindDao stuffFindDao = StuffFindDao.builder().id(stuffAddModel.getId())
-    			 .name(stuffAddModel.getName())
-    			 .location(stuffAddModel.getLocation())
-    			 .date(stuffAddModel.getDate())
-    			 .build();
-    			 
+    	log.info("getting data from database.....");
+    	
+    	StuffFindModel stuffFindmodel =  stuffFindRepository.findByName(name);
+    	
+    	log.info("StuffFindModel from database {}" , stuffFindmodel);
+    	
+    	StuffFindDao stuffFindDao = StuffFindDao.builder().id(stuffFindmodel.getId())
+        			 .name(stuffFindmodel.getName())
+        			 .location(stuffFindmodel.getLocation())
+        			 .date(stuffFindmodel.getDate())
+        			 .build();
     	 
     	 return stuffFindDao;
     }
@@ -39,6 +45,18 @@ public class StuffFindServiceImpl implements StuffFindService {
                 .name(stuffAddDto.stuffName)
                 .location(stuffAddDto.location)
                 .build();
-        stuffFindRepository.save(stuffAddModel);
+        log.info("Stuff Model to be added to database {}", stuffAddModel);
+        stuffAddRepository.save(stuffAddModel);
     }
+
+	@Override
+	public void updateTheStuff(StuffAddDto stuffAddDto) {
+		// TODO Auto-generated method stub
+		StuffAddModel stuffAddModel = StuffAddModel.builder()
+                .name(stuffAddDto.stuffName)
+                .location(stuffAddDto.location)
+                .build();
+        log.info("Stuff Model to be added to database {}", stuffAddModel);
+        stuffAddRepository.save(stuffAddModel);
+	}
 }

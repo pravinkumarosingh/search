@@ -25,8 +25,6 @@ public class StuffAddModel {
 
     @Column(name = "location")
     private String location;
-    
-    @Column(name = "date")
-    private String date;
+ 
 
 }
