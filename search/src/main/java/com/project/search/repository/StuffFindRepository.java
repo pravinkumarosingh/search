@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.project.search.model.StuffFindModel;
 
 @Repository
-public interface StuffFindRepository extends JpaRepository<StuffFindModel, Long> {
+public interface StuffFindRepository extends JpaRepository<StuffFindModel, Integer> {
 	
 	
 	@Query(value = "SELECT * FROM stuff_data  WHERE name LIKE %:name% " ,nativeQuery=true )

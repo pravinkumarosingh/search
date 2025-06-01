@@ -64,4 +64,13 @@ public class StuffFindServiceImpl implements StuffFindService {
 		
 		
 	}
+
+	public void deleteTheStuff(String name) {
+		// TODO Auto-generated method stub
+		StuffFindModel stuffFindModel = stuffFindRepository.findByName(name);
+		
+		if(stuffFindModel!=null) {
+			stuffAddRepository.deleteById(stuffFindModel.getId());
+		}
+	}
 }

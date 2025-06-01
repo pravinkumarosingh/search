@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/search/api")
 @Slf4j
 @Tag(name = "Stuff Controller" , description = "APIs to add, update, get, delete stuffs")
+@CrossOrigin(origins = "http://localhost:3000")
 public class StuffController {
 	
 	@Autowired
@@ -50,7 +51,8 @@ public class StuffController {
     @DeleteMapping(value = "delete")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Stuff Delete API" , description = "API to delete stuff details")
-    public String deleteStuff(@RequestBody String stuffName) {
+    public String deleteStuff(@Param(value = "name") String name) {
+    	stuffFindService.deleteTheStuff(name);
     	return "Details deleted successfully";
     }
 
